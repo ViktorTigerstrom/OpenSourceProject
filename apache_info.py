@@ -10,6 +10,8 @@ import gzip
 import datetime
 
 
+#testing
+
 def gen_matched_files(top_dir, file_pattern):
     '''Given the top directory path `top_dir` and a file pattern
     `file_pattern`, create a generator of all the file paths that are
