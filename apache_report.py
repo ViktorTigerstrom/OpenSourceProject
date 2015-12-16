@@ -94,7 +94,7 @@ def aggregate_data(top_dir, file_pattern):
     apache_data             = apache_log_infos(top_dir, file_pattern)
     total_sent              = get_bytes(apache_data)
     cumulative_size_request = get_cumulative_size_request(apache_data)
-    status_404_request      = get_status_404_request(apahe_data) 
+    status_404_request      = get_status_404_request(apache_data) 
     weekly_uniq_hosts       = get_weekly_uniq_hosts(apache_data)    
  
     return Data(total_sent, cumulative_size_requests,
