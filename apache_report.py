@@ -13,7 +13,7 @@ from apache_print import (print_header,
 def get_bytes(data_dicts):
     bytes = 0
     for data_dict in data_dicts:
-        bytes += data_dict['size']
+        bytes += int(data_dict['size'])
     return bytes
 
 def get_cumulative_size_request(apache_data):
