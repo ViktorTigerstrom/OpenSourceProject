@@ -16,6 +16,9 @@ def get_bytes(data_dicts):
         bytes += data_dict['size']
     return bytes
 
+def get_cumulative_size_request(apache_data):
+    return sorted(apache_data, key=lambda k: k['size'], reverse=True)[:100]
+
 def aggregate_data(top_dir, file_pattern):
     '''Given the diretory path for top directory `top_dir` and the filename
     pattern to search, return a tuple of all required information to write to
@@ -36,6 +39,8 @@ def aggregate_data(top_dir, file_pattern):
     # +++your code here+++
     apache_data = apache_log_infos(top_dir, file_pattern)
     total_sent = get_bytes(apache_data)
+    cumulative_size_request = get_cumulative_size_request(apache_data)
+    
     return Data(total_sent, cumulative_size_requests,
                 weekly_uniq_hosts, status_404_requests)
 
