@@ -101,7 +101,10 @@ def print_weekly_unique_hosts(file_report, weekly_uniq_hosts):
     ...
     '''
     # +++your code here+++
+    with open(file_report, "a") as f: f.write('Weekly Number of Unique Hosts \n')
 
+    for request in status_404_requests:
+        with open(file_report, "a") as f: f.write('Week ' + str(request['week']) + ': ' + '\n') 
 
 def print_status_404_requests(file_report, status_404_requests):
     '''Given the path of a report file `file_report` and all the unique

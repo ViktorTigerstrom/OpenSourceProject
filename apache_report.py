@@ -40,8 +40,35 @@ def get_status_404_request(apahe_data):
 
     return sorted(data, key=lambda k: k['request'], reverse=True)
 
-#def get_weekly_uniq_hosts(apache_data):
-    #TODO
+def unique_hosts(apache_data):
+    request = []
+
+    for line in apache_data:
+        if 'host' in line:
+            request.append(line['host'])
+
+    return list(set(request))
+
+def get_weekly_uniq_hosts(apache_data):
+    request = []
+
+    for line in apache_data:
+        request.append(line['week'] = datetime.date(line['year'], line['month'], line['year']).isocalendar()[1]
+    
+    request = sorted(request, key=lambda k: k['week'])
+  
+    #for line in request:
+    uh = []
+    lw = []
+    for value, index in enumerate(request):
+        if(index != 0 and value['week'] != request[index-1]['week']):
+            uh.append(unique_hosts(lw))
+            lw = value
+        else:
+            lw.append(value)            
+    uh.append(unique_hosts(lw))
+    return uh
+
 
 def aggregate_data(top_dir, file_pattern):
     '''Given the diretory path for top directory `top_dir` and the filename
@@ -91,7 +118,9 @@ def print_report(file_report, data):
 
     print_top_cumulative_size_requests(file_report, get_cumulative_size_request(data))      
 
-    print_status_404_requests(file_report, get_status_404_request(data)) 
+    print_status_404_requests(file_report, get_status_404_request(data))
+
+     
 
 def main():
     '''Run create_report function to create report'''
