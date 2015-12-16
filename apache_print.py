@@ -82,6 +82,10 @@ def print_top_cumulative_size_requests(file_report, cumulative_size_requests):
     ...
     '''
     # +++your code here+++
+    with open(file_report, "a") as f: f.write('Top 100 Largest Total-Sent Requests \n')
+   
+    for cs_request in cumulative_size_requests:
+        with open(file_report, "a") as f: f.write(str(request['request']) + ' ' + to_human_readable_size(request['size']) + 'GB\n') 
 
 
 def print_weekly_unique_hosts(file_report, weekly_uniq_hosts):
