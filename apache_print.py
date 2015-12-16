@@ -65,6 +65,9 @@ def print_total_sent(file_report, bytes_sent):
     Total transferred: xx.xx GB
     '''
     # +++your code here+++
+    size = to_human_readable_size(bytes_sent)
+    
+    with open(file_report, "a") as f: f.write('Total transferred: ' + size + 'GB\n')
 
 
 def print_top_cumulative_size_requests(file_report, cumulative_size_requests):
