@@ -95,47 +95,43 @@ def gen_log_infos(lines):
               'May': 5, 'Jun': 6,  'Jul': 7,  'Aug': 8,
               'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
     for line in lines:
-        words = line.split()
-        if words[0] == '---':
-            continue
-        host = words[0]
-        referrer = words[1]
-        user = words[2]
-        dates = words[3].replace("[","")
-        dates = dates.split('/')
-        day = dates[0]
-        month = dates[1]
-        year_and_time = dates[2].split(':', 1)
-        year = year_and_time[0]
-        time = year_and_time[1]
-        timezone = words[4].replace("[","")
-        method = words[5].replace('"', '')
-        request = words[6]
-        proto = words[7].replace('"', '')
-        status = words[8]
-        size = words[9]
-        yield {'host' : host,
-               'referrer' : referrer,
-               'user' : user,
-               'dates' : dates,
-               'day' : day,
-               'month' : month_dict[month],
-               'year' : year,
-               'time' : time,
-               'timezone' : timezone,
-               'method' : method,
-               'request' : request,
-               'proto' : proto,
-               'status' : status,
-               'size' : 0 if size == '-' else size
-            }
-        
-        
-        
-        
-        
-        
-
+        try:
+            words = line.split()
+            if len(words) != 10 or words[0] == '---':
+                continue
+            host = words[0]
+            referrer = words[1]
+            user = words[2]
+            dates = words[3].replace("[","")
+            dates = dates.split('/')
+            day = dates[0]
+            month = dates[1]
+            year_and_time = dates[2].split(':', 1)
+            year = year_and_time[0]
+            time = year_and_time[1]
+            timezone = words[4].replace("[","")
+            method = words[5].replace('"', '')
+            request = words[6]
+            proto = words[7].replace('"', '')
+            status = words[8]
+            size = words[9]
+            yield {'host' : host,
+                   'referrer' : referrer,
+                   'user' : user,
+                   'dates' : dates,
+                   'day' : day,
+                   'month' : month_dict[month],
+                   'year' : year,
+                   'time' : time,
+                   'timezone' : timezone,
+                   'method' : method,
+                   'request' : request,
+                   'proto' : proto,
+                   'status' : status,
+                   'size' : 0 if size == '-' else int(size)
+                }
+        except IndexError:
+            hdgfd = 3
 
 def apache_log_infos(top_dir, file_pattern):
     '''Given the top directory `top_dir` and file pattern `file_pattern`,
