@@ -19,6 +19,15 @@ def get_bytes(data_dicts):
 def get_cumulative_size_request(apache_data):
     return sorted(apache_data, key=lambda k: k['size'], reverse=True)[:100]
 
+def get_status_404_request(apahe_data):
+    copy_data = apache_data
+
+    for line in copy_data
+        if line['status'] != 404
+            copy_data.remove(line)
+
+    return copy_data 
+
 def aggregate_data(top_dir, file_pattern):
     '''Given the diretory path for top directory `top_dir` and the filename
     pattern to search, return a tuple of all required information to write to
@@ -31,15 +40,17 @@ def aggregate_data(top_dir, file_pattern):
     '''
     Data = namedtuple('Data', 'total_sent, cumulative_size_requests, \
                       weekly_uniq_hosts, status_404_requests')
-    total_sent = 0
-    cumulative_size_requests = {}
-    status_404_requests = {}
-    weekly_uniq_hosts = {}
+
+    total_sent              = 0
+    cumulative_size_requests= {}
+    status_404_requests     = {}
+    weekly_uniq_hosts       = {}
 
     # +++your code here+++
-    apache_data = apache_log_infos(top_dir, file_pattern)
-    total_sent = get_bytes(apache_data)
+    apache_data             = apache_log_infos(top_dir, file_pattern)
+    total_sent              = get_bytes(apache_data)
     cumulative_size_request = get_cumulative_size_request(apache_data)
+    status_404_request      = get_status_404_request(apahe_data) 
     
     return Data(total_sent, cumulative_size_requests,
                 weekly_uniq_hosts, status_404_requests)
