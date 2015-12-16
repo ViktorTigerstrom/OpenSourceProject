@@ -19,14 +19,26 @@ def get_bytes(data_dicts):
 def get_cumulative_size_request(apache_data):
     return sorted(apache_data, key=lambda k: k['size'], reverse=True)[:100]
 
+def request_frequency(apache_data):
+    data = {}
+
+    for line in apache_data:
+        if 'request' in line:
+            if line['request'] in data:
+                data[line['request']] += 1
+            else:
+                data[line['request']] = 1
+
+    return data.items()
+
 def get_status_404_request(apahe_data):
-    copy_data = apache_data
+    data = request_frequency(apache_data)
 
-    for line in copy_data
+    for line in data:
         if line['status'] != 404
-            copy_data.remove(line)
+            data.remove(line)
 
-    return copy_data 
+    return sorted(data, key=lambda k: k['request'], reverse=True)
 
 def aggregate_data(top_dir, file_pattern):
     '''Given the diretory path for top directory `top_dir` and the filename
@@ -51,7 +63,8 @@ def aggregate_data(top_dir, file_pattern):
     total_sent              = get_bytes(apache_data)
     cumulative_size_request = get_cumulative_size_request(apache_data)
     status_404_request      = get_status_404_request(apahe_data) 
-    
+    weekly_uniq_hosts       = get_weekly_uniq_hosts(apache_data)    
+ 
     return Data(total_sent, cumulative_size_requests,
                 weekly_uniq_hosts, status_404_requests)
 
