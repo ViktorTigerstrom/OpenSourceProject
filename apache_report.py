@@ -40,6 +40,9 @@ def get_status_404_request(apahe_data):
 
     return sorted(data, key=lambda k: k['request'], reverse=True)
 
+def get_weekly_uniq_hosts(apache_data):
+    #TODO
+
 def aggregate_data(top_dir, file_pattern):
     '''Given the diretory path for top directory `top_dir` and the filename
     pattern to search, return a tuple of all required information to write to

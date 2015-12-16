@@ -41,6 +41,19 @@ def print_header(file_report):
         - To return formatted date and time, see datetime.strftime function
     '''
     # +++your code here+++
+    from datetime import datetime
+
+    datetime = datetime.now()
+
+    f = open(file_report, 'w')
+
+    f.write('\
+************************************\n\
+*        APACHE LOG REPORT         *\n\
+* Generated on ' +  datetime.strftime("%d-%m-%y %H:%M") + '      *\n\
+************************************\n')
+
+    f.close()
 
 
 def print_total_sent(file_report, bytes_sent):
