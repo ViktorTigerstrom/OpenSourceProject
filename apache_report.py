@@ -35,12 +35,12 @@ def get_status_404_request(apahe_data):
     data = request_frequency(apache_data)
 
     for line in data:
-        if line['status'] != 404
+        if line['status'] != 404:
             data.remove(line)
 
     return sorted(data, key=lambda k: k['request'], reverse=True)
 
-def get_weekly_uniq_hosts(apache_data):
+#def get_weekly_uniq_hosts(apache_data):
     #TODO
 
 def aggregate_data(top_dir, file_pattern):
@@ -86,7 +86,12 @@ def print_report(file_report, data):
     5. All status-404 requests sorted by its frequency
     '''
     print_header(file_report)
- 
+
+    print_total_sent(file_report, get_bytes(data))
+
+    print_top_cumulative_size_requests(file_report, get_cumulative_size_request(data))      
+
+    print_status_404_requests(file_report, get_status_404_request(data)) 
 
 def main():
     '''Run create_report function to create report'''
