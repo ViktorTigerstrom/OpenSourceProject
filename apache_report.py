@@ -85,7 +85,8 @@ def print_report(file_report, data):
     4. The number of all unique host IP addresses per week
     5. All status-404 requests sorted by its frequency
     '''
-
+    print_header(file_report)
+ 
 
 def main():
     '''Run create_report function to create report'''
