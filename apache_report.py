@@ -53,7 +53,7 @@ def get_weekly_uniq_hosts(apache_data):
     request = []
 
     for line in apache_data:
-        request.append(line['week'] = datetime.date(line['year'], line['month'], line['year']).isocalendar()[1]
+        request.append(line['week'] = datetime.date(line['year'], line['month'], line['year']).isocalendar()[1])
     
     request = sorted(request, key=lambda k: k['week'])
   
